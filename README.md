@@ -26,3 +26,5 @@ Usage:
   Rerun chattool4.py
   
   Enjoy.
+
+tip: Give me a Star if it's useful for you. Tks.
