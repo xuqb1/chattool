@@ -3,7 +3,7 @@ ChatTool 是一个基于Kimi的可多轮对话，可本地执行 Javascript 和 
 
 功能:
   1. 界面语言切换，目前可切换中文和英文
-  2. 多轮对
+  2. 多轮对话，对话内容全部保存在 chat.json 里
   3. 运行 Javascript 和 Pytho代码，需要本机安装好 node 和 python
   4. 根据我发出的话来进行快速切换，不需要猛爬楼了
 
