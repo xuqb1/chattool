@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Code Block Toggle</title>
+    <style>
+        /* 添加一些基本的CSS样式 */
+        .markdown-code {
+            border: 1px solid #ccc;
+            padding: 0px;
+            margin: 0px 0;
+        }
+        .markdown-code pre {
+            display: none;
+            padding: 5px;
+        }
+        /*.markdown-code.expanded pre {
+            display: block;
+        }*/
+        .toggle-div {
+          width: 100%;
+          height: 20px;
+          line-height: 20px;
+          /*background-color: #eee;*/
+          cursor: pointer;
+          padding: 2px;
+        }
+        .arrowDown{
+          width: 10px;
+          height: 10px;
+          border-right: 1px solid #333;   /*设置左边框*/
+          border-bottom: 1px solid  #333;    /*设置上边框*/
+          transform:rotate(45deg);
+          cursor: pointer;
+          margin: 0px 5px 2px 5px;
+        }
+        .arrowUp{
+          width: 10px;
+          height: 10px;
+          border-left: 1px solid #333;   /*设置左边框*/
+          border-top: 1px solid  #333;    /*设置上边框*/
+          transform:rotate(45deg);
+          cursor: pointer;
+          margin: 10px 5px 2px 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="markdown-code">
+        <div style="display:flex;background-color: #eee;">
+          <div class="toggle-div arrowDown" onclick="toggleCode(this)"></div>
+          <div>html</div>
+        </div>
+        <pre><code>
+        .markdown-code pre {
+            display: none;
+        }
+        .markdown-code.expanded pre {
+            display: block;
+        }</code></pre>
+    </div>
+
+    <script>
+        // JavaScript函数来控制折叠和展开
+        function toggleCode(button) {
+            var codeBlock = button.parentNode.parentNode.querySelector('pre');
+            if (codeBlock.style.display === 'none') {
+                codeBlock.style.display = 'block';
+                button.className = 'toggle-div arrowUp';
+            } else {
+                codeBlock.style.display = 'none';
+                button.className = 'toggle-div arrowDown';
+            }
+        }
+    </script>
+</body>
+</html>

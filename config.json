@@ -1,0 +1,16 @@
+{
+    "left_width": 224,
+    "show_left": true,
+    "lang": "zh",
+    "cache_dir": "s",
+    "ai_key": "s",
+    "ai_url": "https://api.moonshot.cn/v1",
+    "position": [
+        493,
+        187
+    ],
+    "size": [
+        919,
+        694
+    ]
+}

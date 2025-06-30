@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Display</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /*text-align: center;
+            background-color: #f0f0f0;  设置背景颜色 */
+            overflow: auto;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /*text-align: center;*/
+            width: 100%;
+            height: 100%;
+        }
+        h1 {
+            margin: 0;
+            padding: 0;
+        }
+        .chat-container {
+            border: 0px solid #ccc;
+            padding: 10px;
+            width: 90%;
+            margin: 20px;
+        }
+        .message {
+            margin-bottom: 10px;
+            border: 0px solid #000;
+        }
+        .me {
+          display: flex;
+          width: 100%;
+          align-self: flex-end;
+          border: 0px solid #ccc;
+          min-height: 50px;
+          word-wrap: break-word;
+          white-space: pre-wrap;
+          margin-bottom: 10px;
+        }
+        .user {
+          margin-left: auto;
+          border-radius: 12px;
+          box-sizing: border-box;
+          position: relative;
+          font-weight: 400;
+          font-size: 16px;
+          background-color: #1783FF;
+          color: white;
+          max-width: calc(100% - 100px);
+          min-width: 100px;
+          width: fit-content;
+          padding: 10px 20px;
+          word-wrap: break-word;
+          white-space: pre-wrap;
+        }
+        .bot {
+          border: 1px solid #ccc;
+          border-radius: 12px;
+          display: flex;
+          flex-flow: column;
+          box-sizing: border-box;
+          position: relative;
+          font-weight: 400;
+          font-size: 16px;
+          padding: 10px 20px;
+          width: fit-content;
+          max-width: 100%; /*calc(100% - 100px);*/
+        }
+        .fixed-right-div {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #f0f0f0; /* Optional: Add a background color for visibility */
+        }
+        .toggle-div {
+          width: 100%;
+          height: 20px;
+          line-height: 20px;
+          /*background-color: #eee;*/
+          cursor: pointer;
+          padding: 2px;
+        }
+        /* 代码折叠 向下按钮 */
+        .arrowDown{
+          width: 10px;
+          height: 10px;
+          border-right: 1px solid #333;   /*设置左边框*/
+          border-bottom: 1px solid  #333;    /*设置上边框*/
+          transform:rotate(45deg);
+          cursor: pointer;
+          margin: 2px 5px 2px 5px;
+        }
+        /* 代码折叠 向上按钮 */
+        .arrowUp{
+          width: 10px;
+          height: 10px;
+          border-left: 1px solid #333;   /*设置左边框*/
+          border-top: 1px solid  #333;    /*设置上边框*/
+          transform:rotate(45deg);
+          cursor: pointer;
+          margin: 10px 5px 2px 5px;
+        }
+        /* 右侧边栏 */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #f0f0f0;
+            overflow-y: auto;
+            transition: transform 0.3s ease-in-out;
+            transform: 'translateX(0px)';
+            z-index: 990;
+            opacity: 0.6;
+        }
+
+        .sidebar-content {
+            padding: 20px;
+        }
+        li {
+          list-style: decimal;
+          /*none,disc,circle,square,decimal,*/
+          /*lower-roman,lower-alpha,upper-alpha */
+          
+          /*list-style: none;*/
+          /*list-style-image: url('./icons/pot.png');*/
+          
+          /*list-style: none; */ /* 先去除小圆点 */
+          /*background: url('./icons/pot.png');*/ /* 修改为背景图片 */
+          /*background-size: 100% 100%;*/ /* 设置背景图片100%填充 */
+          /*padding-left: 20px;*/
+        }
+        .toggle-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #ddd;
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+            line-height: 15px;
+            text-align: center;
+            z-index: 999;
+            opacity: 0.5;
+        }
+        .toggle-updown {
+            position: absolute;
+            bottom: 50px;
+            right: 10px;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #ddd;
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+            line-height: 15px;
+            text-align: center;
+            transform:rotate(90deg);
+            z-index: 999;
+            opacity: 0.5;
+            
+        }
+        #main-content {
+            margin-right: 200px;
+            height: 100%;
+        }
+        .markdown-code {
+          border: 1px solid #d5d5d5;
+          border-radius: 5px;
+        }
+        .markdown-title {
+          display:flex;
+          background-color:#f5f5f5;
+        }
+        pre {
+          margin: 0;
+          padding: 5px;
+          overflow: auto;
+        }
+    </style>
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error("Error: " + message);
+            console.error("Source: " + source);
+            console.error("Line: " + lineno);
+            console.error("Column: " + colno);
+            console.error("Error object: ", error);
+            alert(error)
+        };
+    </script>
+</head>
+<body>
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-content">
+            <ul id="myChatList">
+            </ul>
+        </div>
+    </div>
+    <div class="toggle-button" onclick="toggleSidebar(this)">></div>
+    <div id="updownDiv" class="toggle-updown" onclick="totopdown()"><</div>
+    <div id="main-content">
+      <div class="container" id="welcomeDiv">
+          <h1>Welcome</h1>
+      </div>
+      <div id="chatContainer" class="chat-container"></div>
+    </div>
+    <!--
+    <button onClick="sendMsg()">发送</button>
+    <textarea id="sendtxt" rows=5></textarea>
+    <textarea id="sendtxt1" rows=5></textarea>
+    <button onClick="sendMsg1()">发送</button>
+    <div class="fixed-right-div"></div>-->
+    <script src="chat.js"></script>
+</body>
+</html>

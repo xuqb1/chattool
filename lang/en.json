@@ -1,0 +1,23 @@
+{
+  "save": "Save", 
+  "reload": "Reload", 
+  "settings": "Settings", 
+  "send": "Send", 
+  "lang": "Language", 
+  "langoptions": [
+    {
+      "value": "en", 
+      "text": "English"
+    }, 
+    {
+      "value": "zh", 
+      "text": "Chinese"
+    }
+  ], 
+  "cachedir": "Cache dir", 
+  "browser": "browser", 
+  "selectcachedir": "Select dir for Cache", 
+  "kimikey": "Kimi Key", 
+  "kimiurl": "Kimi Url", 
+  "cancel": "Cancel"
+}

@@ -1,0 +1,23 @@
+{
+  "save": "保存", 
+  "reload": "重载", 
+  "settings": "设置", 
+  "send": "发送", 
+  "lang": "语言", 
+  "langoptions": [
+    {
+      "value": "en", 
+      "text": "英文"
+    }, 
+    {
+      "value": "zh", 
+      "text": "中文"
+    }
+  ], 
+  "cachedir": "缓存目录", 
+  "browser": "浏览", 
+  "selectcachedir": "选择缓存目录", 
+  "kimikey": "Kimi Key", 
+  "kimiurl": "Kimi 网址", 
+  "cancel": "取消"
+}
