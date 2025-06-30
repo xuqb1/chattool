@@ -1,2 +1,2 @@
 # chattool
-custom chat client with javascript and python code runner. 能执行javascript和python代码的本地执行的ai会话客户端
+ChatTool is a local AI conversational client based on Kimi that can execute JavaScript and Python code.
